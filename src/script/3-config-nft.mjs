@@ -9,8 +9,8 @@ const bundleDrop = sdk.getBundleDropModule(
   try {
     await bundleDrop.createBatch([
       {
-        name: "Leaf Village Headband",
-        description: "This NFT will give you access to NarutoDAO!",
+        name: "Neon Token",
+        description: "This NFT will give you access to Kick start DAO!",
         image: readFileSync("src/script/assets/neon-token.png"),
       },
     ]);
@@ -18,4 +18,4 @@ const bundleDrop = sdk.getBundleDropModule(
   } catch (error) {
     console.error("failed to create the new NFT", error);
   }
-})()
+})();

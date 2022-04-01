@@ -1,4 +1,4 @@
-import sdk from "./1-SDK.mjs";
+import sdk from "./1-SDK.js";
 import { MaxUint256 } from "@ethersproject/constants";
 
 const editionDrop = sdk.getEditionDrop("0x833B36fBDD417957f87C1682Ffd40a9AAB2372F3");

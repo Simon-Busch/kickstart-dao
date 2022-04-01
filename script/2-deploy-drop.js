@@ -1,5 +1,5 @@
 import { AddressZero } from "@ethersproject/constants";
-import sdk from "./1-SDK.mjs";
+import sdk from "./1-SDK.js";
 import { readFileSync } from "fs";
 
 (async () => {

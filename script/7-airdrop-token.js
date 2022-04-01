@@ -4,6 +4,8 @@ import sdk from "./1-SDK.js";
 // Address of ERC-1155 membership NFT contract.
 const editionDrop = sdk.getEditionDrop("0x833B36fBDD417957f87C1682Ffd40a9AAB2372F3");
 const token = sdk.getToken("0x8Ee82768B7C460A494162D5e0F40740d23a358Fe");
+//!! NB if re-run script, will airdrop AGAIN to all addresses
+// TODO make a script that airdrop to new addreses only
 
 (async () => {
   try {
@@ -44,6 +46,3 @@ const token = sdk.getToken("0x8Ee82768B7C460A494162D5e0F40740d23a358Fe");
     console.error("Failed to airdrop tokens", err);
   }
 })();
-
-//!! NB if re-run script, will airdrop AGAIN to all addresses
-// TODO make a script that airdrop to new addreses only

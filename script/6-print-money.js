@@ -1,7 +1,7 @@
 import sdk from "./1-SDK.js";
 
 // Address of the token, obtained in step5
-const token = sdk.getToken("0xFCA1aC6b65434e00C0e4C60a5fAa1C64C4eAE1Cd");
+const token = sdk.getToken("0x8Ee82768B7C460A494162D5e0F40740d23a358Fe");
 
 (async () => {
   try {

@@ -1,6 +1,7 @@
-import { useAddress, useMetamask, useEditionDrop, useToken, useVote } from '@thirdweb-dev/react';
+import { useAddress, useMetamask, useEditionDrop, useToken, useNetwork, useVote } from '@thirdweb-dev/react';
 import { useState, useEffect, useMemo } from 'react';
 import { AddressZero } from "@ethersproject/constants";
+import { ChainId } from '@thirdweb-dev/sdk'
 import './App.css';
 
 const App = () => {
@@ -20,12 +21,15 @@ const App = () => {
   const token = useToken("0x8Ee82768B7C460A494162D5e0F40740d23a358Fe");
   const editionDrop = useEditionDrop("0x833B36fBDD417957f87C1682Ffd40a9AAB2372F3");
   const vote = useVote("0x61A0cE85D8675057daACAD63BF2b5BE21fBB329C");
+  const network = useNetwork();
   console.log("👋 Address:", address);
 
   // A fancy function to shorten someones wallet address, no need to show the whole thing. 
   const shortenAddress = (str) => {
     return str.substring(0, 6) + "..." + str.substring(str.length - 4);
   };
+
+  
 
   // Retrieve all our existing proposals from the contract.
   useEffect(() => {
@@ -74,8 +78,6 @@ const App = () => {
     checkIfUserHasVoted();
 
   }, [hasClaimedNFT, proposals, address, vote]);
-
-
 
   useEffect(() => {
     // If they don't have an connected wallet, exit!
@@ -155,6 +157,8 @@ const App = () => {
     });
   }, [memberAddresses, memberTokenAmounts]);
 
+
+
   const mintNft = async () => {
     try {
       setIsClaiming(true);
@@ -168,7 +172,6 @@ const App = () => {
       setIsClaiming(false);
     }
   };
-
   
   if (!address) {
     return (
@@ -180,6 +183,18 @@ const App = () => {
       </div>
     );
   };
+
+  if (network?.[0].data.chain.id !== ChainId.Rinkeby) {
+    return (
+      <div className="unsupported-network app-container" style={{width: '100vw', height: '100vh'}}>
+        <h2>Please connect to Rinkeby</h2>
+        <p>
+          This dapp only works on the Rinkeby network, please switch networks
+          in your connected wallet.
+        </p>
+      </div>
+    );
+  }
 
   if (hasClaimedNFT) {
     return (
@@ -295,7 +310,10 @@ const App = () => {
                 }
               }}
             >
-              {proposals.map((proposal) => (
+              {
+              !hasVoted
+              ?
+              proposals.map((proposal) => (
                 <div key={proposal.proposalId} className="card">
                   <h5>{proposal.description}</h5>
                   <div>
@@ -316,7 +334,9 @@ const App = () => {
                     ))}
                   </div>
                 </div>
-              ))}
+              ))
+            :<p>You already voted ✅ </p>
+            }
               <button disabled={isVoting || hasVoted} type="submit">
                 {isVoting
                   ? "Voting..."
